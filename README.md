@@ -2,15 +2,21 @@
 
 Wanted to apply `tint`, `font`, `padding`, `glassEffect`, or any other SwiftUI modifier through a `<Host>` from `@expo/ui/swift-ui` and realized the `modifiers` prop typechecked but did nothing on iOS. Filed [`expo/expo#45872`](https://github.com/expo/expo/pull/45872) to fix it. This repo is the minimal repro so maintainers and reviewers don't have to spend time recreating one to validate the PR.
 
-![Host modifiers home](screenshots/01-header-tint-toggle-slider.png)
-
-| Picker, Button, ProgressView | ProgressView and whole stack | Four accents from one wrapper |
-|---|---|---|
-| ![](screenshots/02-tint-picker-button-progress.png) | ![](screenshots/03-tint-progress-whole-stack.png) | ![](screenshots/04-swap-accents-font.png) |
-
-| font, foregroundStyle, disabled | chrome, transform, filters | filters, onTapGesture, iOS 26 Liquid Glass |
-|---|---|---|
-| ![](screenshots/05-font-foregroundstyle-disabled.png) | ![](screenshots/06-chrome-transform-filters.png) | ![](screenshots/07-filters-tap-glass.png) |
+<table>
+  <tr>
+    <td><img src="screenshots/01-header-tint-toggle-slider.png" width="180" alt="Toggle and Slider" /></td>
+    <td><img src="screenshots/02-tint-picker-button-progress.png" width="180" alt="Picker, Button, ProgressView" /></td>
+    <td><img src="screenshots/03-tint-progress-whole-stack.png" width="180" alt="ProgressView and whole stack" /></td>
+    <td><img src="screenshots/04-swap-accents-font.png" width="180" alt="Four accents from one wrapper" /></td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td><img src="screenshots/05-font-foregroundstyle-disabled.png" width="180" alt="font, foregroundStyle, disabled" /></td>
+    <td><img src="screenshots/06-chrome-transform-filters.png" width="180" alt="chrome, transform, filters" /></td>
+    <td><img src="screenshots/07-filters-tap-glass.png" width="180" alt="filters, onTapGesture, iOS 26 Liquid Glass" /></td>
+  </tr>
+</table>
 
 ## Run
 
