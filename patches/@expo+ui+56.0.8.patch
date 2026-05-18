@@ -1,28 +1,19 @@
 diff --git a/node_modules/@expo/ui/ios/ExpoUIModule.swift b/node_modules/@expo/ui/ios/ExpoUIModule.swift
-index 87cbf96..71979ac 100644
+index 87cbf96..10dc1f4 100644
 --- a/node_modules/@expo/ui/ios/ExpoUIModule.swift
 +++ b/node_modules/@expo/ui/ios/ExpoUIModule.swift
-@@ -81,13 +81,25 @@ public final class ExpoUIModule: Module {
+@@ -81,13 +81,16 @@ public final class ExpoUIModule: Module {
        }
      }
  
 -    // MARK: - Views don't support common view modifiers
-+    // MARK: - Views with custom modifier handling
- 
-+    // HostView applies common view modifiers internally via `applyModifiers`
-+    // so that e.g. `<Host modifiers={[tint(...)]}>` works as the TS types
-+    // promise. It's registered with `View` rather than `ExpoUIView` so the
-+    // `WithHostingView` conformance keeps Host on the UIHostingController
-+    // path used to bridge SwiftUI into the React Native view tree.
++    // MARK: - Views that apply common view modifiers internally
++
 +    View(HostView.self)
-+    // TextView routes modifiers through its own `applyTextModifiers` because
-+    // it returns `Text` (not `some View`) so it can compose with `Text`
-+    // concatenation operators.
 +    View(TextView.self)
-+    // The remaining views genuinely can't host common view modifiers:
-+    // SlotView is a placeholder that yields slots, NamespaceView only
-+    // provides a `matchedGeometryEffect` namespace, and GridRowView must
-+    // be a direct child of Grid to render correctly.
++
++    // MARK: - Views that don't support common view modifiers
+ 
      View(SlotView.self)
      View(NamespaceView.self)
      View(GridRowView.self)
@@ -32,22 +23,18 @@ index 87cbf96..71979ac 100644
      // MARK: - Expo UI Views
  
 diff --git a/node_modules/@expo/ui/ios/HostView.swift b/node_modules/@expo/ui/ios/HostView.swift
-index 98d7bbd..0a6e291 100644
+index 98d7bbd..1e7921e 100644
 --- a/node_modules/@expo/ui/ios/HostView.swift
 +++ b/node_modules/@expo/ui/ios/HostView.swift
-@@ -38,6 +38,11 @@ internal final class HostViewProps: ExpoSwiftUI.ViewProps, ExpoSwiftUI.SafeAreaC
+@@ -38,6 +38,7 @@ internal final class HostViewProps: ExpoSwiftUI.ViewProps, ExpoSwiftUI.SafeAreaC
    @Field var matchContentsHorizontal = false
    @Field var matchContentsVertical = false
    @Field var ignoreSafeArea: ExpoSwiftUI.IgnoreSafeArea?
-+  // The TS `HostProps` extends `CommonViewModifierProps` and the JS forwards
-+  // `modifiers` to the native side. Without this field the value is dropped
-+  // during prop deserialization, so `<Host modifiers={[tint(...)]}>` would be
-+  // a silent no-op even though the TypeScript types allow it.
 +  @Field var modifiers: ModifierArray?
    var onLayoutContent = EventDispatcher()
  }
  
-@@ -45,38 +50,45 @@ struct HostView: ExpoSwiftUI.View, ExpoSwiftUI.WithHostingView {
+@@ -45,38 +46,40 @@ struct HostView: ExpoSwiftUI.View, ExpoSwiftUI.WithHostingView {
    @ObservedObject var props: HostViewProps
  
    var body: some View {
@@ -62,11 +49,6 @@ index 98d7bbd..0a6e291 100644
      let layoutDirection = props.layoutDirection.toLayoutDirection()
      let alignment: Alignment = layoutDirection == .rightToLeft ? .topTrailing : .topLeading
  
-+    // User-supplied modifiers are applied after the host's own environment
-+    // modifiers (so e.g. `colorScheme` still wins for explicit forcing) but
-+    // before `GeometryChangeModifier` so any layout-affecting modifiers
-+    // (frame, padding) feed into the size we propagate back to the React
-+    // Native shadow tree.
      if #available(iOS 16.0, tvOS 16.0, macOS 13.0, *) {
        // swiftlint:disable:next identifier_name
 -      let HostLayout = useViewportSizeMeasurement
