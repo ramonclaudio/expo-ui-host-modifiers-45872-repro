@@ -2,9 +2,11 @@
 
 Wanted to apply `tint`, `font`, `padding`, `glassEffect`, or any other SwiftUI modifier through a `<Host>` from `@expo/ui/swift-ui` and realized the `modifiers` prop typechecked but did nothing on iOS. Filed [`expo/expo#45872`](https://github.com/expo/expo/pull/45872) to fix it. This repo is the minimal repro so maintainers and reviewers don't have to spend time recreating one to validate the PR.
 
-| Toggle and Slider | Picker, Button, ProgressView | ProgressView and whole stack | Four accents from one wrapper |
-|---|---|---|---|
-| ![](screenshots/01-header-tint-toggle-slider.png) | ![](screenshots/02-tint-picker-button-progress.png) | ![](screenshots/03-tint-progress-whole-stack.png) | ![](screenshots/04-swap-accents-font.png) |
+![Host modifiers home](screenshots/01-header-tint-toggle-slider.png)
+
+| Picker, Button, ProgressView | ProgressView and whole stack | Four accents from one wrapper |
+|---|---|---|
+| ![](screenshots/02-tint-picker-button-progress.png) | ![](screenshots/03-tint-progress-whole-stack.png) | ![](screenshots/04-swap-accents-font.png) |
 
 | font, foregroundStyle, disabled | chrome, transform, filters | filters, onTapGesture, iOS 26 Liquid Glass |
 |---|---|---|
