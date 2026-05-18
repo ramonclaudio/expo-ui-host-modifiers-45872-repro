@@ -2,17 +2,17 @@
 
 Wanted to apply a `tint`, `font`, `padding`, `glassEffect`, or any other SwiftUI modifier through a `<Host>` from `@expo/ui/swift-ui` and realized the `modifiers` prop typechecked but did nothing on iOS. Filed [`expo/expo#45872`](https://github.com/expo/expo/pull/45872) to fix it. This repo is the minimal repro so maintainers and reviewers don't have to spend time recreating one to validate the PR.
 
-| Header + tint on Toggle + Slider | tint on Picker (menu) + Button | tint on Button + ProgressView + whole stack |
+| Header + tint on Toggle + Slider | tint on Picker (menu), Button, ProgressView | tint on ProgressView + whole stack |
 |---|---|---|
-| ![header](screenshots/01-header-tint-toggle-slider.png) | ![picker button](screenshots/02-tint-picker-button.png) | ![progress stack](screenshots/03-tint-progress-stack.png) |
+| ![header](screenshots/01-header-tint-toggle-slider.png) | ![picker button progress](screenshots/02-tint-picker-button-progress.png) | ![progress whole stack](screenshots/03-tint-progress-whole-stack.png) |
 
-| Same form, four accents | font cascade + foregroundStyle | disabled cascade + chrome |
+| Same form four accents + font cascade | font cascade + foregroundStyle + disabled | chrome + transform + filters |
 |---|---|---|
-| ![swap accents](screenshots/04-swap-accents.png) | ![font fg](screenshots/05-font-foregroundstyle.png) | ![disabled chrome](screenshots/06-disabled-chrome.png) |
+| ![swap accents font](screenshots/04-swap-accents-font.png) | ![font fg disabled](screenshots/05-font-foregroundstyle-disabled.png) | ![chrome transform filters](screenshots/06-chrome-transform-filters.png) |
 
-| transforms + filters + onTapGesture | onTapGesture + iOS 26 Liquid Glass |
-|---|---|
-| ![transform filters](screenshots/07-transform-filters.png) | ![tap glass](screenshots/08-tap-gesture-glass.png) |
+| filters + onTapGesture + iOS 26 Liquid Glass |
+|---|
+| ![filters tap glass](screenshots/07-filters-tap-glass.png) |
 
 ## Run
 
