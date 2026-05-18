@@ -1,0 +1,25 @@
+{
+  "name": "host-modifiers-repro",
+  "description": "Minimal iOS repro for @expo/ui Host modifiers fix (PR #45872).",
+  "main": "index.js",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "ios": "expo run:ios",
+    "start": "expo start",
+    "postinstall": "patch-package"
+  },
+  "dependencies": {
+    "@expo/ui": "~56.0.8",
+    "expo": "~56.0.0-preview.12",
+    "react": "19.2.3",
+    "react-native": "0.85.3",
+    "react-native-reanimated": "4.3.1",
+    "react-native-worklets": "0.8.3"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.2",
+    "patch-package": "^8.0.1",
+    "typescript": "~6.0.3"
+  }
+}

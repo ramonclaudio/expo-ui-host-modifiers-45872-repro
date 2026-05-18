@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "Host modifiers repro",
+    "slug": "host-modifiers-repro",
+    "version": "1.0.0",
+    "ios": {
+      "bundleIdentifier": "dev.ramonclaudio.hostmodifiersrepro"
+    }
+  }
+}
